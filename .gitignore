@@ -1,0 +1,11 @@
+multi-agent/
+*.pem
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.egg-info/
+*.egg
+*.log
+*.sqlite3
+*.db
