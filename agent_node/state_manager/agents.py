@@ -5,7 +5,7 @@ from tools.networking_tool import clab_tool, show_netmiko_tool
 from tools.gitop_tool import fetch_github_toolkit
 from langchain_core.prompts import ChatPromptTemplate
 from templates.state_manager_template import (
-    intent_template, github_template, clab_topology_manager_template, drift_manager_template
+    intent_template, github_template, clab_topology_manager_template, drift_manager_template, operational_template
 )
 import os
 
@@ -43,6 +43,13 @@ drift_manager_chat_prompt = ChatPromptTemplate.from_messages([
     ("placeholder", "{messages}"),
 ])
 
+operational_chat_prompt = ChatPromptTemplate.from_messages([
+    ("system", operational_template),
+    ("placeholder", "{messages}"),
+])
+
+
+
 
 
 intent_agent = create_react_agent(
@@ -71,5 +78,12 @@ drift_manager_agent = create_react_agent(
     tools=tools_list,
     debug=True,
     prompt=drift_manager_chat_prompt,
+)
+
+operational_agent = create_react_agent(
+    model=llm,
+    tools=tools_list,
+    debug=True,
+    prompt=operational_chat_prompt,
 )
 
